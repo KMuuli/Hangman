@@ -21,6 +21,7 @@ class GameTime:
             self.label_time["text"] = display
             self.label_time.after(1000, self.update)  # self.update no ()
             self.counter += 1
+
     def start(self):
         self.running = True
         self.update()

@@ -1,5 +1,8 @@
+from datetime import datetime, timedelta
 from tkinter import *
 import tkinter.font as tkfont
+from tkinter import ttk
+
 from PIL import Image, ImageTk
 
 
@@ -68,12 +71,15 @@ class View(Tk):
 
     def create_all_buttons(self):
         # New game
-        btn_new = Button(self.frame_top, text="New Game", font=self.default_style)
-        Button(self.frame_top, text="Leaderboard", font=self.default_style).grid(row=0, column=1, padx=5, pady=2
-                                                                                 , sticky=EW)
+        btn_new = Button(self.frame_top, text="New Game", font=self.default_style
+                         , command=self.controller.click_btn_new)
+        Button(self.frame_top, text="Leaderboard", font=self.default_style,
+               command=self.controller.click_btn_leaderboard).grid(row=0, column=1, padx=5, pady=2, sticky=EW)
         # Cancel and Send
-        btn_cancel = Button(self.frame_top, text="Cancel", font=self.default_style, state="disabled")
-        btn_send = Button(self.frame_top, text="Send", font=self.default_style, state="disabled")
+        btn_cancel = Button(self.frame_top, text="Cancel", font=self.default_style, state="disabled"
+                            , command=self.controller.click_btn_cancel)
+        btn_send = Button(self.frame_top, text="Send", font=self.default_style, state="disabled"
+                          , command=self.controller.click_btn_send)
         # Place three buttons on frame
         btn_new.grid(row=0, column=0, padx=5, pady=2, sticky=EW)
         btn_cancel.grid(row=0, column=2, padx=5, pady=2, sticky=EW)
@@ -103,3 +109,59 @@ class View(Tk):
         char_input.grid(row=1, column=1, padx=5, pady=2)
 
         return char_input
+
+    def change_image(self, image_id):
+        self.image = ImageTk.PhotoImage(Image.open(self.model.image_files[image_id]))
+        self.label_image.configure(image=self.image)
+        self.label_image.image = self.image
+
+    def create_popup_window(self):
+        top = Toplevel(self)
+        top.geometry("500x180")
+        top.resizable(False, False)
+        top.grab_set()  # for Modal Window
+        top.focus()
+
+        frame = Frame(top)
+        frame.pack(expand=True, fill="both")
+        self.center(top)  # Center on screen top window
+        return frame
+
+    def generate_leaderboard(self, frame, data):
+        #  Table view
+        my_table = ttk.Treeview(frame)
+
+        # Vertical scrollbar (right side)
+        vsb = ttk.Scrollbar(frame, orient="vertical", command=my_table.yview)
+        vsb.pack(side="right", fill="y")
+        my_table.configure(yscrollcommand=vsb.set)
+
+        # Columns id
+        my_table["columns"] = ("date_time", "name", "word", "misses", "game_time")
+
+        # Columns characteristics
+        my_table.column("#0", width=0, stretch=NO)
+        my_table.column("date_time", anchor=CENTER, width=90)
+        my_table.column("name", anchor=CENTER, width=80)
+        my_table.column("word", anchor=CENTER, width=80)
+        my_table.column("misses", anchor=CENTER, width=80)
+        my_table.column("game_time", anchor=CENTER, width=40)
+
+        # Table column headin
+        my_table.heading("#0", text="", anchor=CENTER)
+        my_table.heading("date_time", text="Date", anchor=CENTER)
+        my_table.heading("name", text="Player", anchor=CENTER)
+        my_table.heading("word", text="Word", anchor=CENTER)
+        my_table.heading("misses", text="Wrong letters", anchor=CENTER)
+        my_table.heading("game_time", text="Time", anchor=CENTER)
+
+        # Add data into table
+        x = 0
+        for p in data:
+            dt = datetime.strptime(p.date, "%Y-%m-%d %H:%M:%S").strftime("%d.%m.%Y %T")
+            my_table.insert(parent="", index="end", iid=str(x), text="", values=(dt, p.name, p.word, p.misses
+                                                                                 , str(timedelta(seconds=p.time))))
+            x += 1
+
+        my_table.pack(expand=True, fill="both")
+

@@ -6,4 +6,3 @@ class Leaderboard:
         self.word = word
         self.misses = misses
         self.time = time
-
