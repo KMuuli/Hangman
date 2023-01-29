@@ -40,13 +40,19 @@ class Model:
         connection.close()  # Close database connection
 
     def get_user_input(self, userinput):
+        
         if userinput:
             user_char = userinput[:1]   # only first letter
-            if user_char.lower() in self.new_word.lower():
+            if user_char.lower() in self.new_word.lower() and user_char.upper() not in \
+                self.user_word:  # Right letter not repeated
                 self.change_user_input(user_char)  # Found letter
+            elif user_char.lower() in self.new_word.lower()  and user_char.upper() in \
+                self.user_word:  # Right letter but repeated
+                self.counter += 1
             else:  # Letter not found
                 self.counter += 1
-                self.all_user_chars.append(user_char.upper())
+                self.all_user_chars.append(user_char.upper())  # wrong letters to list all_user_chars
+            self.all_user_chars = list(set(self.all_user_chars))
 
     def change_user_input(self, user_char):
         # replace all _ with fount letter
@@ -57,8 +63,9 @@ class Model:
                 self.user_word[x] = user_char.upper()
             x += 1
 
-    def chars_to_list(self, string):
-        # string to list: test => ["t", "e", "s", "t"]
+    @staticmethod
+    def chars_to_list(string):
+        # string to list: test => ["T", "e", "s", "t"]
         chars = []
         chars[:0] = string
         return chars
