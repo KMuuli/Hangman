@@ -13,7 +13,6 @@ class GameTime:
             if self.counter == 0:
                 display = "0:00:00"
             else:
-
                 tt = datetime.utcfromtimestamp(self.counter)
                 string = tt.strftime("%T")  # %G:%M:%S
                 display = string
