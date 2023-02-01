@@ -1,0 +1,9 @@
+2023-01-06 15:01:41;Kaspar;Eramu;S, H;24
+2023-01-06 15:05:31;Try Harder;Kutseõpetaja;G, D, Q, R, G;21
+2023-01-06 16:02:17;trololo;Kortermaja;S, S, W, S, D;29
+2023-01-06 16:23:05;troll;Veoautojuht;R;19
+2023-01-06 16:32:35;proov1;Suvila;;8
+2023-02-01 08:26:05;kontroll;Eramu;;9
+2023-02-01 08:26:38;kontroll2;Bussijuht;F;28
+2023-02-01 08:27:07;ttrll;Kasvuhoone;;20
+2023-02-01 08:45:16;trol;Bussijuht;;33
