@@ -7,3 +7,8 @@
 2023-02-01 08:26:38;kontroll2;Bussijuht;F;28
 2023-02-01 08:27:07;ttrll;Kasvuhoone;;20
 2023-02-01 08:45:16;trol;Bussijuht;;33
+2023-02-01 08:59:53;konroll11;Eramu;;15
+2023-02-01 10:50:29;kontroiller;Elumaja;S, W;14
+2023-02-01 10:50:48;lol;Kutseõpetaja;H, Ü;14
+2023-02-01 11:06:38;suvilaa;Suvila;;8
+2023-02-01 11:16:50;None;Autojuht;L;10

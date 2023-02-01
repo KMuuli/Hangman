@@ -6,7 +6,6 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 
 
-
 class View(Tk):
 
     def __init__(self, controller, model):
@@ -15,7 +14,6 @@ class View(Tk):
         self.model = model
         self.userinput = StringVar()
 
-        # TODO Fonts
         self.big_font_style = tkfont.Font(family="Courier", size=18, weight="bold")
         self.default_style_bold = tkfont.Font(family="Verdana", size=10, weight="bold")
         self.default_style = tkfont.Font(family="Verdana", size=10)
@@ -25,7 +23,7 @@ class View(Tk):
         self.title("Hangman by Kaspar")
         self.center(self)
 
-        # Create two frames
+        # Create three frames
         self.frame_top, self.frame_bottom, self.frame_image = self.create_two_frames()
 
         self.image = ImageTk.PhotoImage(Image.open(self.model.image_files[len(self.model.image_files) - 1]))
@@ -34,6 +32,9 @@ class View(Tk):
         self.btn_new, self.btn_cancel, self.btn_send = self.create_all_buttons()
         self.lbl_error, self.lbl_time, self.lbl_result = self.create_all_labels()
         self.char_input = self.create_input_entry()
+
+        # Bind Enter key
+        self.bind("<Return>", lambda event: self.controller.click_btn_send())
 
     def main(self):
         self.mainloop()
